@@ -1,4 +1,5 @@
 local Flipper = require(script.Parent.Parent.Flipper)
+local React = require(script.Parent.Parent.React)
 
 local function createMotor(initialValue)
 	local initialValueType = type(initialValue)
@@ -11,15 +12,15 @@ local function createMotor(initialValue)
 	end
 end
 
-local function useMotor(hooks, initialValue)
-	local motor = hooks.useValue(createMotor(initialValue)).value
+local function useMotor(initialValue)
+	local motor = React.useValue(createMotor(initialValue)).value
 
-	hooks.useEffect(function()
+	React.useEffect(function()
 		return function()
 			motor:destroy()
 		end
 	end, {})
-	
+
 	return motor
 end
 
